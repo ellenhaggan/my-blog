@@ -21,7 +21,7 @@ def standard_new(request):
 			page.author = request.user
 			page.published_date = timezone.now()
 			page.save()
-			return redirect('standard_detail', pk=post.pk)
+			return redirect('standard_detail', pk=page.pk)
 	else:
 		form = PostForm()
 	return render(request, 'blog/standard_edit.html', {'form': form})
@@ -29,14 +29,14 @@ def standard_new(request):
 def standard_edit(request, pk):
     page = get_object_or_404(Standard, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, instance=page)
         if form.is_valid():
             page = form.save(commit=False)
             page.author = request.user
             page.published_date = timezone.now()
             page.save()
-            return redirect('standard_detail', pk=post.pk)
+            return redirect('standard_detail', pk=page.pk)
     else:
-        form = PostForm(instance=post)
+        form = PostForm(instance=page)
     return render(request, 'blog/standard_edit.html', {'form': form})	
 	
